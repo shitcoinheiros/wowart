@@ -22,7 +22,7 @@
             color: #fff;
         }
 
-        /* Interface Controls */
+        /* Controles da Interface */
         .controls {
             background: #ffffff;
             padding: 25px;
@@ -70,7 +70,7 @@
             box-shadow: 0 4px 10px rgba(255, 79, 216, 0.3);
         }
 
-        /* Wallet Canvas */
+        /* Contêiner da Carteira */
         #wallet-container {
             background: #fff;
             width: 210mm;
@@ -82,11 +82,11 @@
         }
 
         .paper-wallet {
-            width: 180mm;
-            height: 80mm;
+            width: 200mm; 
+            height: 125mm; 
             position: relative;
             display: flex;
-            background-color: var(--wow-pink); /* Fundo Rosa Neon Wownero */
+            background-color: var(--wow-pink);
             border-radius: 4px;
             overflow: hidden;
             border: 1px solid #999;
@@ -97,6 +97,7 @@
             padding: 15px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             position: relative;
             z-index: 2;
             height: 100%;
@@ -107,20 +108,22 @@
         .panel-center { border-right: 1px dashed var(--fold-line); }
         .panel-right { padding: 0; overflow: hidden; }
 
-        /* Estilo para áreas de escrita/leitura para não serem afetadas pelo rosa */
+        /* Estilo para áreas de escrita/leitura (Parte Branca) */
         .clear-zone {
             background: rgba(255, 255, 255, 0.96);
-            padding: 12px;
+            padding: 12px 15px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.05);
-            height: 100%;
+            height: 92%; 
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+            overflow: hidden;
+            align-items: center; 
         }
 
-        /* Typography */
+        /* Tipografia */
         .brand {
             font-size: 16px;
             font-weight: 900;
@@ -128,57 +131,83 @@
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1.2px;
+            width: 100%;
+            text-align: center;
         }
 
         .label {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 800;
             color: #000;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             letter-spacing: 0.5px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* QR Code Wrapper */
+        .qr-wrapper {
+            position: relative;
+            margin-top: auto;
+            margin-bottom: 10px;
         }
 
         .qr-box {
             background: white;
-            padding: 6px;
-            border-radius: 6px;
-            margin: 8px 0;
-            width: 100px;
-            height: 100px;
-            align-self: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            width: 140px; 
+            height: 140px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .qr-box img { width: 100%; height: 100%; border-radius: 2px; }
 
+        /* Endereço abaixo do QR Code */
         .address-text {
             font-family: "Courier New", monospace;
-            font-size: 8.5px;
+            font-size: 10px; 
+            font-weight: bold;
             word-break: break-all;
             background: #fff;
-            padding: 6px;
+            padding: 8px;
             border-radius: 4px;
             border: 1px solid #ddd;
-            line-height: 1.1;
+            line-height: 1.2;
             color: #000;
-            margin-top: auto;
+            margin-top: 5px;
+            text-align: center;
+            width: 90%;
+        }
+
+        /* Logo abaixo do endereço */
+        .bottom-logo {
+            width: 40px;
+            height: 40px;
+            margin-top: 8px;
+            object-fit: contain;
         }
 
         .seed-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 5px;
+            column-gap: 15px;
+            row-gap: 6px;
             flex-grow: 1;
+            width: 100%;
         }
 
         .seed-word {
             border-bottom: 1px solid #000;
-            height: 14px;
-            font-size: 9px;
+            height: 18px;
+            font-size: 10px;
             display: flex;
             align-items: flex-end;
-            padding-left: 15px;
+            padding-left: 18px;
             position: relative;
             color: #000;
         }
@@ -193,16 +222,40 @@
             font-weight: bold;
         }
 
+        /* Campos Manuais */
+        .manual-fields {
+            margin-top: 5px; 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+            padding-bottom: 15px; 
+            width: 100%;
+        }
+
+        .field-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-line {
+            border-bottom: 1.5px solid #000;
+            height: 20px;
+            margin-top: 1px;
+        }
+
         .security-badge {
-            font-size: 8px;
+            font-size: 7px;
             font-weight: bold;
             color: #666;
             text-align: center;
             text-transform: uppercase;
-            margin-top: 10px;
+            margin-top: auto;
+            width: 100%;
         }
 
-        /* Aba Direita - Imagem Full */
+        /* Painel de Arte */
         .art-container {
             width: 100%;
             height: 100%;
@@ -245,7 +298,7 @@
             .controls { display: none; }
             #wallet-container { box-shadow: none; width: 210mm; height: 297mm; }
             .paper-wallet { 
-                border: 1px solid #000;
+                border: 1.5px solid #000;
                 -webkit-print-color-adjust: exact; 
                 print-color-adjust: exact;
             }
@@ -266,33 +319,52 @@
         <input type="text" id="bgInput" placeholder="Ex: https://i.imgur.com/link-da-imagem.jpg">
     </div>
     <button class="print-btn" onclick="window.print()">IMPRIMIR CARTEIRA</button>
-    <div style="font-size: 12px; color: #666;">
-        <b>Esquerda:</b> 25 Palavras (Seed) | <b>Meio:</b> Endereço Público | <b>Direita:</b> Arte | <b>Background:</b> Neon Pink
-    </div>
 </div>
 
 <div id="wallet-container">
     <div class="paper-wallet">
         
-        <!-- ABA 1: ESQUERDA (SEED) -->
+        <!-- ABA 1: ESQUERDA (SEED + CAMPOS MANUAIS) -->
         <div class="panel panel-left">
             <div class="clear-zone">
-                <div class="brand">🔑 Secret Seed</div>
-                <div class="label">Mnemonic (25 words)</div>
+                <div class="brand">Secret Seed</div>
+                
                 <div class="seed-grid" id="seedGrid"></div>
+
+                <div class="manual-fields">
+                    <div class="field-box">
+                        <span class="label">Restore Height</span>
+                        <div class="input-line"></div>
+                    </div>
+                    <div class="field-box">
+                        <span class="label">Creation Date</span>
+                        <div class="input-line"></div>
+                    </div>
+                </div>
+
                 <div class="security-badge" style="color: #c0392b;">Private - Never share</div>
             </div>
         </div>
 
-        <!-- ABA 2: MEIO (ENDEREÇO PÚBLICO) -->
+        <!-- ABA 2: MEIO (RECEBIMENTO) -->
         <div class="panel panel-center">
             <div class="clear-zone">
-                <div class="brand" style="text-align: center;">📬 Receive</div>
-                <div class="label" style="text-align: center;">Public Address</div>
-                <div class="qr-box" id="qrPublic">
-                    <div style="font-size:8px; color:#aaa; text-align:center; padding-top:35px">Waiting...</div>
+                <div class="brand">Receive</div>
+                <div class="label">Public Address</div>
+                
+                <!-- QR Code Simples -->
+                <div class="qr-wrapper">
+                    <div class="qr-box" id="qrPublic">
+                        <div style="font-size:8px; color:#aaa; text-align:center;">Aguardando...</div>
+                    </div>
                 </div>
+                
+                <!-- Endereço logo abaixo do QR -->
                 <div class="address-text" id="addressDisplay">Wownero...</div>
+                
+                <!-- Logo WOW apenas abaixo do endereço agora -->
+                <img src="https://ipfs.io/ipfs/bafybeiatwh6t6ep7vpx34scuwpsjnkcysnp6bjrmtlxrt36q2lhyitfxx4" alt="Wownero Logo" class="bottom-logo">
+                
                 <div class="security-badge">Wownero (WOW)</div>
             </div>
         </div>
@@ -300,13 +372,13 @@
         <!-- ABA 3: DIREITA (IMAGEM COMPLETA) -->
         <div class="panel panel-right">
             <div class="art-container" id="artPanel">
-                <div class="art-label">Wownero Cold Storage</div>
+                <div class="art-label">wowart.org</div>
             </div>
         </div>
 
         <!-- Guias de Dobra -->
-        <div class="fold-label" style="left: 59.5mm; bottom: 10px;">DOBRE AQUI</div>
-        <div class="fold-label" style="left: 119.5mm; bottom: 10px;">DOBRE AQUI</div>
+        <div class="fold-label" style="left: 66.1mm; bottom: 20px;">DOBRE AQUI</div>
+        <div class="fold-label" style="left: 132.8mm; bottom: 20px;">DOBRE AQUI</div>
     </div>
 </div>
 
@@ -331,9 +403,10 @@
         const val = e.target.value.trim();
         addressDisplay.innerText = val || 'Wownero...';
         if(val.length > 15) {
-            qrPublic.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(val)}&margin=0" alt="QR">`;
+            // Gera o QR Code sem o logo centralizado
+            qrPublic.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(val)}&margin=0" alt="QR">`;
         } else {
-            qrPublic.innerHTML = `<div style="font-size:8px; color:#aaa; text-align:center; padding-top:35px">Waiting...</div>`;
+            qrPublic.innerHTML = `<div style="font-size:8px; color:#aaa; text-align:center;">Aguardando...</div>`;
         }
     });
 
