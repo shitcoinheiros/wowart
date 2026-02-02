@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wownero Professional Paper Wallet</title>
+    <style>
+        :root {
+            --wow-pink: #ff4fd8; /* Rosa Neon Wownero */
+            --wow-dark: #222;
+            --fold-line: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: #1a1a1a;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+        }
+
+        /* Interface Controls */
+        .controls {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: #333;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label { font-weight: 600; font-size: 14px; color: #555; }
+
+        input {
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--wow-pink);
+        }
+
+        .print-btn {
+            background: linear-gradient(135deg, var(--wow-pink), #e039bb);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(255, 79, 216, 0.3);
+        }
+
+        /* Wallet Canvas */
+        #wallet-container {
+            background: #fff;
+            width: 210mm;
+            height: 297mm;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .paper-wallet {
+            width: 180mm;
+            height: 80mm;
+            position: relative;
+            display: flex;
+            background-color: var(--wow-pink); /* Fundo Rosa Neon Wownero */
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #999;
+        }
+
+        .panel {
+            flex: 1;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .panel-left { border-right: 1px dashed var(--fold-line); }
+        .panel-center { border-right: 1px dashed var(--fold-line); }
+        .panel-right { padding: 0; overflow: hidden; }
+
+        /* Estilo para áreas de escrita/leitura para não serem afetadas pelo rosa */
+        .clear-zone {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* Typography */
+        .brand {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--wow-pink);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .label {
+            font-size: 9px;
+            font-weight: 800;
+            color: #000;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .qr-box {
+            background: white;
+            padding: 6px;
+            border-radius: 6px;
+            margin: 8px 0;
+            width: 100px;
+            height: 100px;
+            align-self: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .qr-box img { width: 100%; height: 100%; border-radius: 2px; }
+
+        .address-text {
+            font-family: "Courier New", monospace;
+            font-size: 8.5px;
+            word-break: break-all;
+            background: #fff;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            line-height: 1.1;
+            color: #000;
+            margin-top: auto;
+        }
+
+        .seed-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+            flex-grow: 1;
+        }
+
+        .seed-word {
+            border-bottom: 1px solid #000;
+            height: 14px;
+            font-size: 9px;
+            display: flex;
+            align-items: flex-end;
+            padding-left: 15px;
+            position: relative;
+            color: #000;
+        }
+
+        .seed-word::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            font-size: 7px;
+            color: #777;
+            font-weight: bold;
+        }
+
+        .security-badge {
+            font-size: 8px;
+            font-weight: bold;
+            color: #666;
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        /* Aba Direita - Imagem Full */
+        .art-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding: 15px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .art-label {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 900;
+            color: var(--wow-pink);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .fold-label {
+            position: absolute;
+            font-size: 7px;
+            color: #fff;
+            font-weight: bold;
+            transform: rotate(-90deg);
+            white-space: nowrap;
+            z-index: 10;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .controls { display: none; }
+            #wallet-container { box-shadow: none; width: 210mm; height: 297mm; }
+            .paper-wallet { 
+                border: 1px solid #000;
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+            .fold-label { color: #000; text-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="controls">
+    <h2 style="margin:0; color:var(--wow-pink)">Wownero Neon Paper Wallet</h2>
+    <div class="input-group">
+        <label>Endereço Público (WOW...)</label>
+        <input type="text" id="addressInput" placeholder="Cole aqui o seu endereço Wownero">
+    </div>
+    <div class="input-group">
+        <label>URL da Imagem de Fundo (Aba Direita)</label>
+        <input type="text" id="bgInput" placeholder="Ex: https://i.imgur.com/link-da-imagem.jpg">
+    </div>
+    <button class="print-btn" onclick="window.print()">IMPRIMIR CARTEIRA</button>
+    <div style="font-size: 12px; color: #666;">
+        <b>Esquerda:</b> 25 Palavras (Seed) | <b>Meio:</b> Endereço Público | <b>Direita:</b> Arte | <b>Background:</b> Neon Pink
+    </div>
+</div>
+
+<div id="wallet-container">
+    <div class="paper-wallet">
+        
+        <!-- ABA 1: ESQUERDA (SEED) -->
+        <div class="panel panel-left">
+            <div class="clear-zone">
+                <div class="brand">🔑 Secret Seed</div>
+                <div class="label">Mnemonic (25 words)</div>
+                <div class="seed-grid" id="seedGrid"></div>
+                <div class="security-badge" style="color: #c0392b;">Private - Never share</div>
+            </div>
+        </div>
+
+        <!-- ABA 2: MEIO (ENDEREÇO PÚBLICO) -->
+        <div class="panel panel-center">
+            <div class="clear-zone">
+                <div class="brand" style="text-align: center;">📬 Receive</div>
+                <div class="label" style="text-align: center;">Public Address</div>
+                <div class="qr-box" id="qrPublic">
+                    <div style="font-size:8px; color:#aaa; text-align:center; padding-top:35px">Waiting...</div>
+                </div>
+                <div class="address-text" id="addressDisplay">Wownero...</div>
+                <div class="security-badge">Wownero (WOW)</div>
+            </div>
+        </div>
+
+        <!-- ABA 3: DIREITA (IMAGEM COMPLETA) -->
+        <div class="panel panel-right">
+            <div class="art-container" id="artPanel">
+                <div class="art-label">Wownero Cold Storage</div>
+            </div>
+        </div>
+
+        <!-- Guias de Dobra -->
+        <div class="fold-label" style="left: 59.5mm; bottom: 10px;">DOBRE AQUI</div>
+        <div class="fold-label" style="left: 119.5mm; bottom: 10px;">DOBRE AQUI</div>
+    </div>
+</div>
+
+<script>
+    const addressInput = document.getElementById('addressInput');
+    const bgInput = document.getElementById('bgInput');
+    const addressDisplay = document.getElementById('addressDisplay');
+    const qrPublic = document.getElementById('qrPublic');
+    const artPanel = document.getElementById('artPanel');
+    const seedGrid = document.getElementById('seedGrid');
+
+    // Inicializar slots da seed (25 palavras)
+    for(let i=1; i<=25; i++) {
+        const div = document.createElement('div');
+        div.className = 'seed-word';
+        div.setAttribute('data-num', i);
+        seedGrid.appendChild(div);
+    }
+
+    // Listener para o endereço
+    addressInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        addressDisplay.innerText = val || 'Wownero...';
+        if(val.length > 15) {
+            qrPublic.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(val)}&margin=0" alt="QR">`;
+        } else {
+            qrPublic.innerHTML = `<div style="font-size:8px; color:#aaa; text-align:center; padding-top:35px">Waiting...</div>`;
+        }
+    });
+
+    // Listener para imagem de fundo na aba direita
+    bgInput.addEventListener('input', (e) => {
+        const url = e.target.value.trim();
+        if(url) {
+            artPanel.style.backgroundImage = `url('${url}')`;
+        } else {
+            artPanel.style.backgroundImage = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
