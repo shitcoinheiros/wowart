@@ -42,9 +42,6 @@
             --neon-pink: #ff00ff;
             --neon-blue: #00f2ff;
             --cyber-dark: #0a000d;
-            --wow-pink: #ff4fd8;
-            --wow-dark: #222;
-            --fold-line: rgba(0, 0, 0, 0.15);
         }
 
         body, html {
@@ -115,6 +112,7 @@
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
             border: 1px solid rgba(255, 0, 255, 0.1);
             transform: translateY(-5%);
+            /* Desativar salvar imagem padrão */
             pointer-events: auto;
             -webkit-touch-callout: none;
         }
@@ -250,7 +248,13 @@
             overflow-y: auto;
         }
 
-        /* Estilos específicos do paper wallet (visualização) */
+        /* Estilos específicos do paper wallet */
+        .paper-wallet-styles {
+            --wow-pink: #ff4fd8;
+            --wow-dark: #222;
+            --fold-line: rgba(0, 0, 0, 0.15);
+        }
+
         .paper-wallet-container {
             background: #ffffff;
             padding: 25px;
@@ -298,17 +302,16 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* VERSÃO FIEL DO SEU DESIGN ORIGINAL */
         .paper-wallet-preview {
-            width: 200mm; 
-            height: 125mm; 
+            width: 200mm;
+            height: 125mm;
             position: relative;
             display: flex;
             background-color: var(--wow-pink);
             border-radius: 4px;
             overflow: hidden;
             border: 1px solid #999;
-            transform: scale(0.7);
+            transform: scale(0.8);
             transform-origin: top center;
         }
 
@@ -334,12 +337,12 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.05);
-            height: 92%; 
+            height: 92%;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
             overflow: hidden;
-            align-items: center; 
+            align-items: center;
         }
 
         .brand {
@@ -364,29 +367,21 @@
             text-align: center;
         }
 
-        .qr-wrapper {
-            position: relative;
-            margin-top: auto;
-            margin-bottom: 10px;
-        }
-
         .qr-box {
             background: white;
             padding: 10px;
             border-radius: 8px;
-            width: 140px; 
-            height: 140px; 
+            width: 140px;
+            height: 140px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .qr-box img { width: 100%; height: 100%; border-radius: 2px; }
-
         .address-text {
             font-family: "Courier New", monospace;
-            font-size: 10px; 
+            font-size: 10px;
             font-weight: bold;
             word-break: break-all;
             background: #fff;
@@ -405,6 +400,32 @@
             height: 40px;
             margin-top: 8px;
             object-fit: contain;
+        }
+
+        .art-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding: 15px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .art-label {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 900;
+            color: var(--wow-pink);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .seed-grid {
@@ -438,13 +459,13 @@
         }
 
         .manual-fields {
-            margin-top: 5px; 
+            margin-top: 5px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             border-top: 1px solid #eee;
             padding-top: 8px;
-            padding-bottom: 15px; 
+            padding-bottom: 15px;
             width: 100%;
         }
 
@@ -467,32 +488,6 @@
             text-transform: uppercase;
             margin-top: auto;
             width: 100%;
-        }
-
-        .art-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-end;
-            padding: 15px;
-            box-sizing: border-box;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .art-label {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 900;
-            color: var(--wow-pink);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .fold-label {
@@ -647,10 +642,8 @@
                                 <div class="brand">Receive</div>
                                 <div class="label">Public Address</div>
                                 
-                                <div class="qr-wrapper">
-                                    <div class="qr-box" id="paperQrPublic">
-                                        <div style="font-size:8px; color:#aaa; text-align:center;">Aguardando...</div>
-                                    </div>
+                                <div class="qr-box" id="paperQrPublic">
+                                    <div style="font-size:8px; color:#aaa; text-align:center;">Aguardando...</div>
                                 </div>
                                 
                                 <div class="address-text" id="paperAddressDisplay">Wownero...</div>
@@ -924,18 +917,6 @@
                     qrPublic.innerHTML = `<div style="font-size:8px; color:#aaa; text-align:center;">Aguardando...</div>`;
                 }
             });
-
-            // Listener para imagem de fundo
-            const bgInput = document.getElementById('paperBgInput');
-            bgInput.addEventListener('input', (e) => {
-                const url = e.target.value.trim();
-                const artPanel = document.getElementById('paperArtPanel');
-                if(url) {
-                    artPanel.style.backgroundImage = `url('${url}')`;
-                } else {
-                    artPanel.style.backgroundImage = 'none';
-                }
-            });
         }
 
         function openPaperWalletModal(cid, imageUrl, title) {
@@ -949,6 +930,12 @@
             // Aplicar a imagem no paper wallet
             const artPanel = document.getElementById('paperArtPanel');
             artPanel.style.backgroundImage = `url('${imageUrl}')`;
+            
+            // Adicionar título como parte do label
+            const artLabel = artPanel.querySelector('.art-label');
+            if (artLabel) {
+                artLabel.textContent = `WOW ART: ${title}`;
+            }
             
             // Mostrar o modal
             document.getElementById('paperWalletModal').style.display = 'flex';
@@ -967,109 +954,77 @@
             // Criar uma nova janela para impressão
             const printWindow = window.open('', '_blank');
             
-            // Obter valores atuais
+            // Conteúdo HTML para impressão
             const address = document.getElementById('paperAddressInput').value.trim() || 'Wownero Address Here';
             const imageUrl = document.getElementById('paperBgInput').value.trim() || '';
             
-            // HTML FIELMENTE IDÊNTICO AO SEU DESIGN ORIGINAL
             printWindow.document.write(`
                 <!DOCTYPE html>
                 <html lang="pt-br">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Wownero Professional Paper Wallet</title>
+                    <title>Wownero Paper Wallet - Print</title>
                     <style>
-                        :root {
-                            --wow-pink: #ff4fd8;
-                            --wow-dark: #222;
-                            --fold-line: rgba(0, 0, 0, 0.15);
-                        }
-
                         @page {
                             size: A4;
                             margin: 0;
                         }
-                        
-                        html, body {
-                            height: 100%;
-                            margin: 0 !important;
-                            padding: 0 !important;
-                            overflow: hidden;
-                            background-color: #fff;
-                        }
-                        
-                        .print-hide {
-                            display: none !important;
-                        }
-
-                        #wallet-container {
-                            width: 210mm;
-                            height: 297mm;
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            background: #fff;
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            margin: 0;
-                            padding: 0;
-                            page-break-after: avoid;
-                            page-break-before: avoid;
+                            height: 100vh;
                         }
-
-                        .paper-wallet {
-                            width: 200mm; 
-                            height: 125mm; 
-                            position: relative;
+                        .paper-wallet-print {
+                            width: 200mm;
+                            height: 125mm;
                             display: flex;
-                            background-color: var(--wow-pink);
+                            background-color: #ff4fd8;
+                            border: 1px solid #000;
                             border-radius: 4px;
                             overflow: hidden;
-                            border: 1.5px solid #000;
-                            -webkit-print-color-adjust: exact; 
-                            print-color-adjust: exact;
                         }
-
-                        .panel {
+                        .print-panel {
                             flex: 1;
                             padding: 15px;
                             display: flex;
                             flex-direction: column;
                             justify-content: center;
                             position: relative;
-                            z-index: 2;
                             height: 100%;
                             box-sizing: border-box;
                         }
-
-                        .panel-left { border-right: 1px dashed var(--fold-line); }
-                        .panel-center { border-right: 1px dashed var(--fold-line); }
-                        .panel-right { padding: 0; overflow: hidden; }
-
-                        .clear-zone {
+                        .print-panel-left { border-right: 1px dashed rgba(0,0,0,0.15); }
+                        .print-panel-center { border-right: 1px dashed rgba(0,0,0,0.15); }
+                        .print-panel-right { padding: 0; overflow: hidden; }
+                        .clear-zone-print {
                             background: rgba(255, 255, 255, 0.96);
                             padding: 12px 15px;
                             border-radius: 8px;
                             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                             border: 1px solid rgba(0,0,0,0.05);
-                            height: 92%; 
+                            height: 92%;
                             display: flex;
                             flex-direction: column;
+                            align-items: center;
                             box-sizing: border-box;
                             overflow: hidden;
-                            align-items: center; 
                         }
-
-                        .brand {
+                        .brand-print {
                             font-size: 16px;
                             font-weight: 900;
-                            color: var(--wow-pink);
+                            color: #ff4fd8;
                             margin-bottom: 8px;
                             text-transform: uppercase;
                             letter-spacing: 1.2px;
                             width: 100%;
                             text-align: center;
                         }
-
-                        .label {
+                        .label-print {
                             font-size: 8px;
                             font-weight: 800;
                             color: #000;
@@ -1079,34 +1034,21 @@
                             width: 100%;
                             text-align: center;
                         }
-
-                        .qr-wrapper {
-                            position: relative;
-                            margin-top: auto;
-                            margin-bottom: 10px;
-                        }
-
-                        .qr-box {
+                        .qr-box-print {
                             background: white;
                             padding: 10px;
                             border-radius: 8px;
-                            width: 140px; 
-                            height: 140px; 
+                            width: 140px;
+                            height: 140px;
                             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                             display: flex;
                             align-items: center;
                             justify-content: center;
+                            margin: 10px 0;
                         }
-
-                        .qr-box img { 
-                            width: 100%; 
-                            height: 100%; 
-                            border-radius: 2px; 
-                        }
-
-                        .address-text {
+                        .address-text-print {
                             font-family: "Courier New", monospace;
-                            font-size: 10px; 
+                            font-size: 10px;
                             font-weight: bold;
                             word-break: break-all;
                             background: #fff;
@@ -1119,77 +1061,7 @@
                             text-align: center;
                             width: 90%;
                         }
-
-                        .bottom-logo {
-                            width: 40px;
-                            height: 40px;
-                            margin-top: 8px;
-                            object-fit: contain;
-                        }
-
-                        .seed-grid {
-                            display: grid;
-                            grid-template-columns: repeat(2, 1fr);
-                            column-gap: 15px;
-                            row-gap: 6px;
-                            flex-grow: 1;
-                            width: 100%;
-                        }
-
-                        .seed-word {
-                            border-bottom: 1px solid #000;
-                            height: 18px;
-                            font-size: 10px;
-                            display: flex;
-                            align-items: flex-end;
-                            padding-left: 18px;
-                            position: relative;
-                            color: #000;
-                        }
-
-                        .seed-word::before {
-                            content: attr(data-num);
-                            position: absolute;
-                            left: 0;
-                            bottom: 1px;
-                            font-size: 7px;
-                            color: #777;
-                            font-weight: bold;
-                        }
-
-                        .manual-fields {
-                            margin-top: 5px; 
-                            display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            gap: 15px;
-                            border-top: 1px solid #eee;
-                            padding-top: 8px;
-                            padding-bottom: 15px; 
-                            width: 100%;
-                        }
-
-                        .field-box {
-                            display: flex;
-                            flex-direction: column;
-                        }
-
-                        .input-line {
-                            border-bottom: 1.5px solid #000;
-                            height: 20px;
-                            margin-top: 1px;
-                        }
-
-                        .security-badge {
-                            font-size: 7px;
-                            font-weight: bold;
-                            color: #666;
-                            text-align: center;
-                            text-transform: uppercase;
-                            margin-top: auto;
-                            width: 100%;
-                        }
-
-                        .art-container {
+                        .art-container-print {
                             width: 100%;
                             height: 100%;
                             display: flex;
@@ -1202,99 +1074,60 @@
                             background-position: center;
                             background-repeat: no-repeat;
                         }
-
-                        .art-label {
+                        .art-label-print {
                             background: rgba(255, 255, 255, 0.85);
                             padding: 5px 10px;
                             border-radius: 4px;
                             font-size: 10px;
                             font-weight: 900;
-                            color: var(--wow-pink);
+                            color: #ff4fd8;
                             text-transform: uppercase;
                             letter-spacing: 1px;
                             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                         }
-
-                        .fold-label {
-                            position: absolute;
-                            font-size: 7px;
-                            color: #000;
-                            font-weight: bold;
-                            transform: rotate(-90deg);
-                            white-space: nowrap;
-                            z-index: 10;
-                        }
                     </style>
                 </head>
                 <body>
-                    <div id="wallet-container">
-                        <div class="paper-wallet">
-                            <!-- ABA 1: ESQUERDA (SEED + CAMPOS MANUAIS) -->
-                            <div class="panel panel-left">
-                                <div class="clear-zone">
-                                    <div class="brand">Secret Seed</div>
-                                    
-                                    <div class="seed-grid">
-                                        ${Array.from({length: 25}, (_, i) => 
-                                            `<div class="seed-word" data-num="${i+1}"></div>`
-                                        ).join('')}
-                                    </div>
-
-                                    <div class="manual-fields">
-                                        <div class="field-box">
-                                            <span class="label">Restore Height</span>
-                                            <div class="input-line"></div>
-                                        </div>
-                                        <div class="field-box">
-                                            <span class="label">Creation Date</span>
-                                            <div class="input-line"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="security-badge" style="color: #c0392b;">Private - Never share</div>
+                    <div class="paper-wallet-print">
+                        <div class="print-panel print-panel-left">
+                            <div class="clear-zone-print">
+                                <div class="brand-print">Secret Seed</div>
+                                <div style="font-size: 9px; color: #777; margin-bottom: 15px; text-align: center;">
+                                    25-word mnemonic seed<br>
+                                    (Write it in the boxes below)
+                                </div>
+                                <div style="width: 100%; height: 1px; background: #eee; margin: 10px 0;"></div>
+                                <div style="font-size: 8px; color: #c0392b; font-weight: bold; margin-top: auto; text-align: center;">
+                                    PRIVATE - NEVER SHARE
                                 </div>
                             </div>
-
-                            <!-- ABA 2: MEIO (RECEBIMENTO) -->
-                            <div class="panel panel-center">
-                                <div class="clear-zone">
-                                    <div class="brand">Receive</div>
-                                    <div class="label">Public Address</div>
-                                    
-                                    <div class="qr-wrapper">
-                                        <div class="qr-box">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(address)}&margin=0" alt="QR">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="address-text">${address}</div>
-                                    
-                                    <img src="https://ipfs.io/ipfs/bafybeiatwh6t6ep7vpx34scuwpsjnkcysnp6bjrmtlxrt36q2lhyitfxx4" alt="Wownero Logo" class="bottom-logo">
-                                    
-                                    <div class="security-badge">Wownero (WOW)</div>
+                        </div>
+                        
+                        <div class="print-panel print-panel-center">
+                            <div class="clear-zone-print">
+                                <div class="brand-print">Receive</div>
+                                <div class="label-print">Public Address</div>
+                                <div class="qr-box-print">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(address)}&margin=0" alt="QR">
+                                </div>
+                                <div class="address-text-print">${address}</div>
+                                <img src="https://ipfs.io/ipfs/bafybeiatwh6t6ep7vpx34scuwpsjnkcysnp6bjrmtlxrt36q2lhyitfxx4" alt="Wownero Logo" style="width: 40px; height: 40px; margin-top: 10px;">
+                                <div style="font-size: 7px; color: #666; font-weight: bold; margin-top: auto; text-align: center;">
+                                    WOWNERO (WOW)
                                 </div>
                             </div>
-
-                            <!-- ABA 3: DIREITA (IMAGEM COMPLETA) -->
-                            <div class="panel panel-right">
-                                <div class="art-container" style="background-image: url('${imageUrl}')">
-                                    <div class="art-label">wowart.org</div>
-                                </div>
+                        </div>
+                        
+                        <div class="print-panel print-panel-right">
+                            <div class="art-container-print" style="background-image: url('${imageUrl}')">
+                                <div class="art-label-print">WOW ART PAPER WALLET</div>
                             </div>
-
-                            <!-- Guias de Dobra -->
-                            <div class="fold-label" style="left: 66.1mm; bottom: 20px;">DOBRE AQUI</div>
-                            <div class="fold-label" style="left: 132.8mm; bottom: 20px;">DOBRE AQUI</div>
                         </div>
                     </div>
-
                     <script>
                         window.onload = () => {
-                            // Aguardar um momento para garantir que a imagem carregue
-                            setTimeout(() => {
-                                window.print();
-                                setTimeout(() => window.close(), 1000);
-                            }, 500);
+                            window.print();
+                            setTimeout(() => window.close(), 1000);
                         };
                     <\/script>
                 </body>
