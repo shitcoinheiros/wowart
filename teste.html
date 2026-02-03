@@ -971,19 +971,7 @@
             const address = document.getElementById('paperAddressInput').value.trim() || 'Wownero Address Here';
             const imageUrl = document.getElementById('paperBgInput').value.trim() || '';
             
-            // Calcular dimensões para ocupar toda a largura da página A4 (210mm)
-            // Mantendo a proporção original (altura = 125mm quando largura = 200mm)
-            // Nova altura proporcional: (125 / 200) * 210 = 131.25mm
-            const walletWidth = '210mm';
-            const walletHeight = '131.25mm';
-            
-            // Calcular posições das guias de dobra proporcionalmente
-            // Original: 66.1mm e 132.8mm em 200mm
-            // Proporcional: (66.1 / 200) * 210 = 69.405mm, (132.8 / 200) * 210 = 139.44mm
-            const foldLeft = '69.4mm';
-            const foldRight = '139.4mm';
-            
-            // HTML FIELMENTE IDÊNTICO AO SEU DESIGN ORIGINAL, MAS COM LARGURA TOTAL
+            // HTML FIELMENTE IDÊNTICO AO SEU DESIGN ORIGINAL
             printWindow.document.write(`
                 <!DOCTYPE html>
                 <html lang="pt-br">
@@ -1028,8 +1016,8 @@
                         }
 
                         .paper-wallet {
-                            width: ${walletWidth}; 
-                            height: ${walletHeight}; 
+                            width: 200mm; 
+                            height: 125mm; 
                             position: relative;
                             display: flex;
                             background-color: var(--wow-pink);
@@ -1038,7 +1026,6 @@
                             border: 1.5px solid #000;
                             -webkit-print-color-adjust: exact; 
                             print-color-adjust: exact;
-                            box-sizing: border-box;
                         }
 
                         .panel {
@@ -1295,9 +1282,9 @@
                                 </div>
                             </div>
 
-                            <!-- Guias de Dobra (posições ajustadas proporcionalmente) -->
-                            <div class="fold-label" style="left: ${foldLeft}; bottom: 20px;">DOBRE AQUI</div>
-                            <div class="fold-label" style="left: ${foldRight}; bottom: 20px;">DOBRE AQUI</div>
+                            <!-- Guias de Dobra -->
+                            <div class="fold-label" style="left: 66.1mm; bottom: 20px;">DOBRE AQUI</div>
+                            <div class="fold-label" style="left: 132.8mm; bottom: 20px;">DOBRE AQUI</div>
                         </div>
                     </div>
 
