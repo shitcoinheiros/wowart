@@ -309,9 +309,31 @@
         }
 
         @media print {
-            body { background: white; padding: 0; }
-            .controls, .print-container { display: none; }
-            #wallet-container { box-shadow: none; width: 210mm; height: 297mm; }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            html, body {
+                height: 100%;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden;
+            }
+            .controls, .print-container {
+                display: none !important;
+            }
+            #wallet-container {
+                box-shadow: none;
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                page-break-after: avoid;
+                page-break-before: avoid;
+            }
             .paper-wallet { 
                 border: 1.5px solid #000;
                 -webkit-print-color-adjust: exact; 
@@ -396,7 +418,7 @@
     </div>
 </div>
 
-<!-- Botão de imprimir movido para o fim da página -->
+<!-- Botão de imprimir no fim da página (interface apenas) -->
 <div class="print-container">
     <button class="print-btn" onclick="window.print()">IMPRIMIR CARTEIRA</button>
 </div>
