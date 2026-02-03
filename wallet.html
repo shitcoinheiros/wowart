@@ -58,16 +58,31 @@
             border-color: var(--wow-pink);
         }
 
+        .print-container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
         .print-btn {
             background: linear-gradient(135deg, var(--wow-pink), #e039bb);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 18px 40px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 6px;
-            font-size: 16px;
-            box-shadow: 0 4px 10px rgba(255, 79, 216, 0.3);
+            border-radius: 8px;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(255, 79, 216, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 79, 216, 0.5);
         }
 
         /* Contêiner da Carteira */
@@ -295,7 +310,7 @@
 
         @media print {
             body { background: white; padding: 0; }
-            .controls { display: none; }
+            .controls, .print-container { display: none; }
             #wallet-container { box-shadow: none; width: 210mm; height: 297mm; }
             .paper-wallet { 
                 border: 1.5px solid #000;
@@ -318,7 +333,6 @@
         <label>URL da Imagem de Fundo (Aba Direita)</label>
         <input type="text" id="bgInput" placeholder="Ex: https://i.imgur.com/link-da-imagem.jpg">
     </div>
-    <button class="print-btn" onclick="window.print()">IMPRIMIR CARTEIRA</button>
 </div>
 
 <div id="wallet-container">
@@ -380,6 +394,11 @@
         <div class="fold-label" style="left: 66.1mm; bottom: 20px;">DOBRE AQUI</div>
         <div class="fold-label" style="left: 132.8mm; bottom: 20px;">DOBRE AQUI</div>
     </div>
+</div>
+
+<!-- Botão de imprimir movido para o fim da página -->
+<div class="print-container">
+    <button class="print-btn" onclick="window.print()">IMPRIMIR CARTEIRA</button>
 </div>
 
 <script>
